@@ -67,7 +67,7 @@ const MessagePanel = () => {
     return (
 
         <React.Fragment>
-            <Box>
+            <Box className={classes.message_history_box}>
 
                 {   // add filter to display only particular friend message
                     allMessages.filter(filterMessages).map((message) => {
