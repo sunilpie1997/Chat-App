@@ -143,7 +143,7 @@ const ChatComponent = () => {
                         }
                     </Box>
                         
-                    <Box className={classes.message_box}>
+                    <Box className={classes.message_panel_box}>
                         <MessagePanel/>
                     </Box>
                         

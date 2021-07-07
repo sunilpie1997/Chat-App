@@ -23,7 +23,7 @@ const useStyles = makeStyles({
    
   },
 
-  message_box: {
+  message_panel_box: {
 
     marginTop:'4em',
     width:'80%',
@@ -77,25 +77,29 @@ const useStyles = makeStyles({
 
   chat_message: {
 
+    marginTop:'1em',
+    marginBottom:"1em",
+    wordWrap:'break-word',
+    maxWidth:'600px',
+    minWidth:"50px",
+    textAlign:'left'
+  },
+
+  message_history_box: {
+
     color:'#002884',
-    minHeight:"60px",
     display:'flex',
     flexDirection:'column',
-    minWidth:'600px',
-    maxWidth:"600px",
-    margin:'1em 0.5em',
-    padding:'0.5em',
-    wordWrap:'break-word',
   },
 
   float_right:{
-    float:'right',
-    clear:'left'
-  },
+    marginLeft:'auto',
+    marginRight:'1em'
+ },
 
   float_left:{
-    float:'left',
-    clear:'right'
+    marginRight:'auto',
+    marginLeft:'1em'
   },
 
   send_message_box: {

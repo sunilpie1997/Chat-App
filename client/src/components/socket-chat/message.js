@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { useStyles } from '../../styles/style';
 import { AuthContext } from '../authentication/auth-context';
+import Box from '@material-ui/core/Box';
+import Typography  from '@material-ui/core/Typography';
 
 const Message = (props) => {
 
@@ -29,10 +31,12 @@ const Message = (props) => {
 
     return (
         <React.Fragment>
-            <Paper elevation={3} className={`${classes.chat_message} ${getClassName()}`}>
-                {content}
-                { setDateFormat(time) }
-            </Paper>
+            <Box className={`${classes.chat_message} ${getClassName()}`}>
+                <Paper elevation={3} style={{padding:'1em', minHeight:'20px'}} >
+                    {content}
+                </Paper>
+                <Typography style={{fontSize:"12px",padding:"0.75em"}}>{ setDateFormat(time) }</Typography>
+            </Box>
         </React.Fragment>
     )
 }
