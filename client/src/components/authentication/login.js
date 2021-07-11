@@ -8,7 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const Login = () => {
 
-    const authContext = useContext(AuthContext);
+    const authDispatch = useContext(AuthContext).authDispatch;
 
     /************** for alerts (success and failure) ***********/
     const [open,setOpen] = useState(false);
@@ -36,9 +36,8 @@ const Login = () => {
 
             localStorage.clear();
             // set logged in user (userState)
-            authContext.authAction({type: 'login', value: apiResp.data})
-            // add user to localstorage
-            localStorage.setItem("user", JSON.stringify(apiResp.data));
+            authDispatch({type: 'login', value: apiResp.data});
+            window.location.pathname="/";
 
             // no point to use alert as it will not be shown as 'Login' component will be unmounted
         }

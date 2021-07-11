@@ -8,7 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const Logout = () => {
 
-    const authContext = useContext(AuthContext);
+    const authDispatch = useContext(AuthContext).authDispatch;
 
     /************** for alerts (success and failure) ***********/
     const [open,setOpen] = useState(false);
@@ -31,8 +31,7 @@ const Logout = () => {
 
         if(!apiResp.error)
         {
-            localStorage.clear();
-            authContext.authAction({type:'logout'});
+            authDispatch({type:'logout'});
         }
         else
         {
