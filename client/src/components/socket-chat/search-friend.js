@@ -14,12 +14,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const SearchFriend = () => {
 
-    const authContext = useContext(AuthContext);
-    const user = authContext.loggedInUser.user;
+    const user = useContext(AuthContext).authState.user;
 
     const classes = useStyles();
 
-    const [ unAuthorized, setUnAuthorised] = useState(true);
     const [friend, setFriend] = useState(null);
     const [email,setEmail] = useState('');
 
@@ -28,15 +26,6 @@ const SearchFriend = () => {
     const [message,setMessage] = useState('');
     const [error, setError] = useState(false);
     /************************************************************/
-
-    useEffect(() => {
-
-        if(user) 
-        { setUnAuthorised(false); }
-        else
-        { setUnAuthorised(true); }
-
-    },[user])
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -77,49 +66,43 @@ const SearchFriend = () => {
     return (
 
         <Box>
-            {unAuthorized ? (
-                <Typography variant="h5" className={classes.text}>Please Login</Typography>
-            ) :(
-                <React.Fragment>
-                {/***************************** alerts on error and success *****************************/}    
-                    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                        {
-                            error ? (
+           
+            {/***************************** alerts on error and success *****************************/}    
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                {
+                    error ? (
                                <AlertMessage onClose={handleClose} severity="error">{message}</AlertMessage>
                             ):
                             (
                                 <AlertMessage onClose={handleClose} severity="success">{message}</AlertMessage>
                             )
-                        }
-                    </Snackbar>
+                }
+                </Snackbar>
                     
-                {/*****************************************************************************************/}   
+            {/*****************************************************************************************/}   
 
-                    <Box className={classes.info_message}>
-                        <AlertMessage severity="info">Add friends here</AlertMessage>
-                    </Box>
-                    <Box className={classes.search_box}>
-                                                
-                        <TextField id="standard-basic" label="your friend" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                        <Fab variant="extended" color="secondary" size="small" style={{margin:'1em'}} onClick={handleSearch}>Search</Fab>
-                        
-                    </Box>
-                    
-                    {
-                        friend && (
-                            <Box className={classes.friend_table_box}>
-                                <FriendTable user={friend}/>
-                            </Box>
-                        )
-                    }
-
-                    <Link to="/">
-                        <Fab variant="extended" color="primary" size="small" style={{margin:'1em'}}>Back</Fab>
-                    </Link>
+                <Box className={classes.info_message}>
+                    <AlertMessage severity="info">Add friends here</AlertMessage>
+                </Box>
                 
-                </React.Fragment>
-                )
-            }
+                <Box className={classes.search_box}>                            
+                    <TextField id="standard-basic" label="your friend" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <Fab variant="extended" color="secondary" size="small" style={{margin:'1em'}} onClick={handleSearch}>Search</Fab>
+                </Box>
+                    
+                {
+                    friend && (
+                        <Box className={classes.friend_table_box}>
+                            <FriendTable user={friend}/>
+                        </Box>
+                    )
+                }
+
+                <Link to="/">
+                    <Fab variant="extended" color="primary" size="small" style={{margin:'1em'}}>Back</Fab>
+                </Link>
+                
+        
         </Box>
     )
 }

@@ -14,8 +14,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const HomePage = () => {
 
-    const authContext = useContext(AuthContext);
-    const user = authContext.loggedInUser.user;
+    const user = useContext(AuthContext).authState.user;
 
     const classes = useStyles();
 
@@ -34,34 +33,27 @@ const HomePage = () => {
             </Box>
         
             <Box className={classes.intro_box}>
-                {
-                    user ? (
-                        <React.Fragment>
+                
+                <React.Fragment>
                        
-                            <UserDetails user={user}/>                           
-                            
-                            <Box style={{margin:'1em'}}>
-                                <Link to="/chat">
-                                    <ChatIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
-                                </Link>
-                                
-                                <Link to="/add_friend">
-                                    <PersonAddIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
-                                </Link>
-                            </Box>
+                    <UserDetails user={user}/>                           
+                       
+                    <Box style={{margin:'1em'}}>
+                        <Link to="/chat">
+                            <ChatIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
+                        </Link>
+                           
+                        <Link to="/add_friend">
+                            <PersonAddIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
+                        </Link>
+                    
+                    </Box>
 
-                            <Box style={{margin:'1em'}}>
-                                <Logout/>
-                            </Box>  
-                            
-                        </React.Fragment>
-                                            
-                    ) : 
-                        <Box>
-                            <Login/>
-
-                        </Box>
-                }
+                    <Box style={{margin:'1em'}}>
+                        <Logout/>
+                    </Box>  
+                       
+                </React.Fragment>
             
             </Box>
 

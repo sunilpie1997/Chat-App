@@ -12,8 +12,7 @@ const SendMessageBox = (props) => {
 
     const pushMessage = props.pushMessage;
 
-    const authContext = useContext(AuthContext);
-    const user = authContext.loggedInUser.user;
+    const user = useContext(AuthContext).authState.user;
 
     const chatFriendContext = useContext(ChatFriendContext);
     const friend = chatFriendContext.chatFriend.user;

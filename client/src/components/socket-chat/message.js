@@ -7,8 +7,7 @@ import Typography  from '@material-ui/core/Typography';
 
 const Message = (props) => {
 
-    const authContext = useContext(AuthContext);
-    const user = authContext.loggedInUser.user;
+    const user = useContext(AuthContext).authState.user;
 
     const classes = useStyles();
 
@@ -30,14 +29,12 @@ const Message = (props) => {
 
 
     return (
-        <React.Fragment>
             <Box className={`${classes.chat_message} ${getClassName()}`}>
                 <Paper elevation={3} style={{padding:'1em', minHeight:'20px'}} >
                     {content}
                 </Paper>
                 <Typography style={{fontSize:"12px",padding:"0.75em"}}>{ setDateFormat(time) }</Typography>
             </Box>
-        </React.Fragment>
     )
 }
 
