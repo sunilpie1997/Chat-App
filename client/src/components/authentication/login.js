@@ -5,10 +5,14 @@ import {authenticateUser} from '../../services/login-service';
 import Fab from '@material-ui/core/Fab';
 import AlertMessage from '../../utils/alerts';
 import Snackbar from '@material-ui/core/Snackbar';
+import Box from '@material-ui/core/Box';
+import { useStyles } from '../../styles/style';
 
 const Login = () => {
 
     const authDispatch = useContext(AuthContext).authDispatch;
+
+    const classes = useStyles();
 
     /************** for alerts (success and failure) ***********/
     const [open,setOpen] = useState(false);
@@ -68,7 +72,7 @@ const Login = () => {
 
     return (
         
-        <React.Fragment>
+        <Box className={classes.login_box}>
 
             {/***************************** alerts on error and success *****************************/}    
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
@@ -83,8 +87,8 @@ const Login = () => {
                     </Snackbar>
                     
             {/*****************************************************************************************/}
-
-            <GoogleLogin
+            <Box>
+                <GoogleLogin
                     clientId={process.env.REACT_APP_CLIENT_ID}
                     render={renderProps => (
                         <Fab variant="extended" color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign in with google</Fab>
@@ -94,8 +98,8 @@ const Login = () => {
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={true}
                 />
-            
-        </React.Fragment>
+            </Box>
+        </Box>
 
         
     );

@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { useReducer } from 'react';
-import HomePage from './components/HomePage';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ChatComponent from './components/socket-chat/chat';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { authReducer, initialAuthState, AuthContext} from './components/authentication/auth-context';
 import Container from '@material-ui/core/Container';
-import SearchFriend from './components/socket-chat/search-friend';
 import { ChatFriendContext, chatUserState, chatFriendReducer } from './components/socket-chat/chat-friend-context';
 import {SocketContext,socket} from './components/socket-chat/socket';
 import ProtectedRoute from './components/authentication/protected-route';
 import Login from './components/authentication/login';
+import DashBoard from './components/dashboard';
+import MatchNotFound from './components/match-not-found';
 
 function App() {
 
@@ -48,10 +47,14 @@ function App() {
           
             <Router>
               <Switch>
-                <Route path="/login" exact component={Login}/>
-                <ProtectedRoute path="/" exact component={HomePage}/>   
-                <ProtectedRoute path="/chat" exact component={ChatComponent}/>
-                <ProtectedRoute path="/add_friend" exact component={SearchFriend}/>
+          
+                <Redirect exact from="/" to="/dashboard" />
+                
+                <Route exact path="/login" render={props => <Login {...props} />}/>
+
+                <ProtectedRoute path="/dashboard" component={DashBoard} />
+                <Route path="*" render={props => <MatchNotFound {...props} />} />
+
               </Switch>
           
             </Router>

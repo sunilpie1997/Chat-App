@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../authentication/auth-context';
 import UserAvatar from '../user/user-avatar';
-import {Link} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import {useStyles} from '../../styles/style';
 import Box from '@material-ui/core/Box';
@@ -114,7 +114,7 @@ const ChatComponent = () => {
                  
                 <Box className={classes.info_message}>
                     
-                    <Link to="/">
+                    <Link to="/dashboard">
                         <UserAvatar photoUrl={user.photoUrl} status={socketStatus} fullName={user.fullName}/>
                     </Link>
 

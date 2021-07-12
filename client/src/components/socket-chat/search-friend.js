@@ -98,7 +98,7 @@ const SearchFriend = () => {
                     )
                 }
 
-                <Link to="/">
+                <Link to="/dashboard">
                     <Fab variant="extended" color="primary" size="small" style={{margin:'1em'}}>Back</Fab>
                 </Link>
                 

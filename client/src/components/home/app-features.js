@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import {useStyles} from '../styles/style';
+import {useStyles} from '../../styles/style';
 import { Box } from '@material-ui/core';
 
 const FeaturesList = () => {
