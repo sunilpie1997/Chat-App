@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import SendMessageBox from './send-message-box';
 import { useStyles } from '../../styles/style';
 import { ChatFriendStateContext } from './chat-friend-context';
-import { SocketContext } from './socket';
+import { SocketContext } from './socket-context';
 
 const MessagePanel = () => {
 

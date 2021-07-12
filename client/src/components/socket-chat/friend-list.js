@@ -1,11 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import FriendView from './friend-view';
 import List from '@material-ui/core/List';
+import { FriendListStateContext } from './friend-list-context';
 
-const FriendList = (props) => {
+const FriendList = () => {
 
+    const friendList = useContext(FriendListStateContext);
 
-    const friendList = props.friendList;
 
     return (
 

@@ -7,12 +7,11 @@ import {useStyles} from '../../styles/style';
 import Box from '@material-ui/core/Box';
 import HomeIcon from '@material-ui/icons/Home';
 import FriendList from './friend-list';
-import { getFriendList } from '../../services/friends-service'
 import AlertMessage from '../../utils/alerts';
 import Snackbar from '@material-ui/core/Snackbar';
 import MessagePanel from './MessagePanel';
 import { ChatFriendStateContext } from './chat-friend-context';
-import { SocketContext } from './socket';
+import { SocketContext } from './socket-context';
 
 const ChatComponent = () => {
 
@@ -22,26 +21,10 @@ const ChatComponent = () => {
    
     const socket = useContext(SocketContext);
 
-    const [friendList, setFriendList] = useState([]);
     const [socketStatus, setSocketStatus] = useState(false);
-
-    /************** for alerts (success and failure) ***********/
-    const [open,setOpen] = useState(false);
-    const [message,setMessage] = useState('');
-    const [error, setError] = useState(false);
-    /************************************************************/
 
     const classes = useStyles();
 
-    const setFriendStatusToOffline = (googleId) => {
-        
-        setFriendList(prev => prev.map(friend => friend.googleId == googleId ? {...friend,status:0} : friend ));
-    }
-
-    const setFriendStatusToOnline = (googleId) => {
-        
-        setFriendList(prev => prev.map(friend => friend.googleId == googleId ? {...friend,status:1} : friend ));
-    }
 
     const setSocketStatusProperty = () => {
 
@@ -58,58 +41,15 @@ const ChatComponent = () => {
     useEffect(() => {
 
         let intervalId = setInterval(setSocketStatusProperty,1000);
-        
-        socket.on('LEAVE',setFriendStatusToOffline);
-        socket.on('JOIN', setFriendStatusToOnline);
-        
-        const fetchFriends = async () => { 
-        
-                const apiResp = await getFriendList();
-                if(!apiResp.error)
-                {
-                    setFriendList(apiResp.data);
-                }
-                else
-                {
-                    setOpen(true);
-                    setMessage(apiResp.message);
-                    setError(true);
-                }
-        }
-        fetchFriends();
 
         return () => { 
-            socket.off('LEAVE',setFriendStatusToOffline);
-            socket.off('JOIN', setFriendStatusToOnline);
             if(intervalId) clearInterval(intervalId);
         }
 
     },[]);
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpen(false);
-      };
-
     return (
         <Box>
-            
-                {/***************************** alerts on error and success *****************************/}    
-                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                {
-                    error ? (
-                               <AlertMessage onClose={handleClose} severity="error">{message}</AlertMessage>
-                            ):
-                            (
-                                <AlertMessage onClose={handleClose} severity="success">{message}</AlertMessage>
-                            )
-                }
-                </Snackbar>
-                    
-                {/*****************************************************************************************/}
                  
                 <Box className={classes.info_message}>
                     
@@ -133,7 +73,7 @@ const ChatComponent = () => {
                 </Box>
                         
                 <Box className={classes.friends_box}>
-                    <FriendList friendList={friendList}/>
+                    <FriendList/>
 
                 </Box>
                 

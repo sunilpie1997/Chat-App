@@ -1,5 +1,5 @@
 import React,{ useReducer, useEffect} from 'react';
-import {socket} from '../socket-chat/socket';
+import {socket} from '../socket-chat/socket-context';
 
 // you can also built an wrapper for useContext() for both 'AuthStateContext' and 'AuthUpdaterContext'
 // https://kentcdodds.com/blog/how-to-optimize-your-context-value
