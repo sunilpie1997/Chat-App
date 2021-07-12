@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { AuthContext } from './auth-context';
+import { AuthUpdaterContext } from './auth-context';
 import { GoogleLogout } from 'react-google-login';
 import { logoutUser } from '../../services/login-service';
 import Fab from '@material-ui/core/Fab';
@@ -8,7 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const Logout = () => {
 
-    const authDispatch = useContext(AuthContext).authDispatch;
+    const authDispatch = useContext(AuthUpdaterContext);
 
     /************** for alerts (success and failure) ***********/
     const [open,setOpen] = useState(false);

@@ -4,7 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import Box from '@material-ui/core/Box';
 import { useStyles } from '../../styles/style';
-import { AuthContext } from '../authentication/auth-context';
+import { AuthStateContext } from '../authentication/auth-context';
 import { ChatFriendContext } from './chat-friend-context';
 import { SocketContext } from './socket';
 
@@ -12,7 +12,7 @@ const SendMessageBox = (props) => {
 
     const pushMessage = props.pushMessage;
 
-    const user = useContext(AuthContext).authState.user;
+    const { user } = useContext(AuthStateContext);
 
     const chatFriendContext = useContext(ChatFriendContext);
     const friend = chatFriendContext.chatFriend.user;

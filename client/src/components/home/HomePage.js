@@ -1,6 +1,6 @@
 import React, {useContext, useEffect,useState} from 'react';
 import Logout from '../authentication/logout';
-import { AuthContext } from '../authentication/auth-context';
+import { AuthStateContext } from '../authentication/auth-context';
 import UserDetails from '../user/user-details'; 
 import {Link, useRouteMatch} from 'react-router-dom';
 import Box from '@material-ui/core/Box';
@@ -15,7 +15,7 @@ const HomePage = () => {
 
     let { path, url } = useRouteMatch();
 
-    const user = useContext(AuthContext).authState.user;
+    const { user } = useContext(AuthStateContext);
 
     const classes = useStyles();
 

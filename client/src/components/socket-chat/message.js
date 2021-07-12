@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { useStyles } from '../../styles/style';
-import { AuthContext } from '../authentication/auth-context';
+import { AuthStateContext } from '../authentication/auth-context';
 import Box from '@material-ui/core/Box';
 import Typography  from '@material-ui/core/Typography';
 
 const Message = (props) => {
 
-    const user = useContext(AuthContext).authState.user;
+    const { user } = useContext(AuthStateContext);
 
     const classes = useStyles();
 
