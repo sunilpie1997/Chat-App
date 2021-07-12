@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { useStyles } from '../../styles/style';
 import { AuthStateContext } from '../authentication/auth-context';
 import { ChatFriendStateContext } from './chat-friend-context';
-import { SocketContext } from './socket';
+import { SocketContext } from './socket-context';
 
 const SendMessageBox = (props) => {
 
