@@ -1,23 +1,23 @@
 import React, {useContext, useEffect,useState} from 'react';
-import Login from './authentication/login';
-import Logout from './authentication/logout';
-import { AuthContext } from './authentication/auth-context';
-import UserDetails from './user/user-details'; 
-import {Link} from 'react-router-dom';
+import Logout from '../authentication/logout';
+import { AuthContext } from '../authentication/auth-context';
+import UserDetails from '../user/user-details'; 
+import {Link, useRouteMatch} from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import {useStyles} from '../styles/style';
-import app_logo from '../photos/app-logo.jpg';
+import {useStyles} from '../../styles/style';
+import app_logo from '../../photos/app-logo.jpg';
 import ChatIcon from '@material-ui/icons/Chat';
 import FeaturesList from './app-features';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const HomePage = () => {
 
+    let { path, url } = useRouteMatch();
+
     const user = useContext(AuthContext).authState.user;
 
     const classes = useStyles();
-
 
     return (
         <React.Fragment>
@@ -39,11 +39,11 @@ const HomePage = () => {
                     <UserDetails user={user}/>                           
                        
                     <Box style={{margin:'1em'}}>
-                        <Link to="/chat">
+                        <Link to={`${url}/chat`}>
                             <ChatIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
                         </Link>
                            
-                        <Link to="/add_friend">
+                        <Link to={`${url}/add_friend`}>
                             <PersonAddIcon color="primary" fontSize="large" style={{padding:'0.25em'}}/>
                         </Link>
                     

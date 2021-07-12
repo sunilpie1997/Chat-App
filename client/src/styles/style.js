@@ -128,6 +128,10 @@ const useStyles = makeStyles({
     maxWidth:'700px'
   },
 
+  login_box : {
+    marginTop:'5em',
+    minHeight:'500px',
+  }
 
 
 });
