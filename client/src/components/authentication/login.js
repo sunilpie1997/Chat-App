@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { AuthContext } from './auth-context';
+import { AuthUpdaterContext } from './auth-context';
 import {authenticateUser} from '../../services/login-service';
 import Fab from '@material-ui/core/Fab';
 import AlertMessage from '../../utils/alerts';
@@ -10,7 +10,7 @@ import { useStyles } from '../../styles/style';
 
 const Login = () => {
 
-    const authDispatch = useContext(AuthContext).authDispatch;
+    const authDispatch = useContext(AuthUpdaterContext);
 
     const classes = useStyles();
 

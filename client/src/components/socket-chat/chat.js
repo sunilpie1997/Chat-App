@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../authentication/auth-context';
+import { AuthStateContext } from '../authentication/auth-context';
 import UserAvatar from '../user/user-avatar';
 import {Link, useRouteMatch} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
@@ -16,7 +16,7 @@ import { SocketContext } from './socket';
 
 const ChatComponent = () => {
 
-    const user = useContext(AuthContext).authState.user;
+    const { user } = useContext(AuthStateContext);
 
     const chatFriendContext = useContext(ChatFriendContext);
     const friend = chatFriendContext.chatFriend.user;

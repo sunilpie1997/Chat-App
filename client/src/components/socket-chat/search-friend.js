@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../authentication/auth-context';
+import { AuthStateContext } from '../authentication/auth-context';
 import {Link} from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +14,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const SearchFriend = () => {
 
-    const user = useContext(AuthContext).authState.user;
+    const { user } = useContext(AuthStateContext);
 
     const classes = useStyles();
 
