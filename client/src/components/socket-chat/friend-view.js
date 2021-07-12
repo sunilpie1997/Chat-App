@@ -4,22 +4,22 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { StyledBadge } from '../../styles/style'; 
-import { ChatFriendContext } from './chat-friend-context';
+import { ChatFriendUpdaterContext } from './chat-friend-context';
 
 const FriendView = (props) => {
 
-    const {email,photoUrl,fullName,status} = props.friend;
+    const { friend } = props;
     
-    const chatFriendContext = useContext(ChatFriendContext);
+    const setChatFriend = useContext(ChatFriendUpdaterContext);
 
     const onSelectFriend = () => {
 
-        chatFriendContext.setChatFriend({ type:'change_friend', value:props.friend })
+        setChatFriend(friend);
     }
 
     const getColorForStatus = () => {
 
-        if(status)
+        if(friend.status)
         return '#44b700';
 
         return "#93ABD3";
@@ -40,11 +40,11 @@ const FriendView = (props) => {
                         variant="dot"
                         colorTheme={getColorForStatus()}
                     >
-                        <Avatar alt={fullName} src={photoUrl} />
+                        <Avatar alt={friend.fullName} src={friend.photoUrl} />
                     </StyledBadge>
                 
                 </ListItemAvatar>
-                <ListItemText primary={fullName} secondary={email} />
+                <ListItemText primary={friend.fullName} secondary={friend.email} />
             </ListItem>
         </React.Fragment>
 

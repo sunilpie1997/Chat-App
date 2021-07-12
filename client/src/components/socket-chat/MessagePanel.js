@@ -3,15 +3,14 @@ import Message from './message';
 import Box from '@material-ui/core/Box';
 import SendMessageBox from './send-message-box';
 import { useStyles } from '../../styles/style';
-import { ChatFriendContext } from './chat-friend-context';
+import { ChatFriendStateContext } from './chat-friend-context';
 import { SocketContext } from './socket';
 
 const MessagePanel = () => {
 
     const classes = useStyles();
 
-    const chatFriendContext = useContext(ChatFriendContext);
-    const friend = chatFriendContext.chatFriend.user;
+    const chatFriend = useContext(ChatFriendStateContext);
 
     const socket = useContext(SocketContext);
 
@@ -57,7 +56,7 @@ const MessagePanel = () => {
 
     const filterMessages = (message) => {
 
-        if( friend && ((message.from === friend.googleId) || (message.to === friend.googleId)) )
+        if( chatFriend && ((message.from === chatFriend.googleId) || (message.to === chatFriend.googleId)) )
         return true;
         
         // if no friend selected, show no message

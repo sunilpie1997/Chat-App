@@ -11,15 +11,14 @@ import { getFriendList } from '../../services/friends-service'
 import AlertMessage from '../../utils/alerts';
 import Snackbar from '@material-ui/core/Snackbar';
 import MessagePanel from './MessagePanel';
-import { ChatFriendContext } from './chat-friend-context';
+import { ChatFriendStateContext } from './chat-friend-context';
 import { SocketContext } from './socket';
 
 const ChatComponent = () => {
 
     const { user } = useContext(AuthStateContext);
 
-    const chatFriendContext = useContext(ChatFriendContext);
-    const friend = chatFriendContext.chatFriend.user;
+    const chatFriend = useContext(ChatFriendStateContext);
    
     const socket = useContext(SocketContext);
 
@@ -120,8 +119,8 @@ const ChatComponent = () => {
 
                     {  
 
-                        friend ? (
-                                    <AlertMessage severity="info">You are chatting with&nbsp;{friend.fullName}</AlertMessage>
+                        chatFriend ? (
+                                    <AlertMessage severity="info">You are chatting with&nbsp;{chatFriend.fullName}</AlertMessage>
                                 ):
                                 (
                                     <AlertMessage severity="warning">Please select your friend</AlertMessage>

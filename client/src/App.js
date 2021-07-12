@@ -4,7 +4,6 @@ import { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { AuthProvider } from './components/authentication/auth-context';
 import Container from '@material-ui/core/Container';
-import { ChatFriendContext, chatUserState, chatFriendReducer } from './components/socket-chat/chat-friend-context';
 import {SocketContext,socket} from './components/socket-chat/socket';
 import ProtectedRoute from './components/authentication/protected-route';
 import Login from './components/authentication/login';
@@ -13,15 +12,11 @@ import MatchNotFound from './components/match-not-found';
 
 function App() {
 
-  const [chatFriend, setChatFriend] = useReducer(chatFriendReducer,chatUserState);
-
-
   return (
 
     <Container maxWidth="xl" className="App">
   
       <AuthProvider>
-        <ChatFriendContext.Provider value={{ chatFriend:chatFriend, setChatFriend:setChatFriend }}>
           <SocketContext.Provider value={socket}>
           
             <Router>
@@ -38,7 +33,6 @@ function App() {
           
             </Router>
           </SocketContext.Provider>
-        </ChatFriendContext.Provider>
       </AuthProvider>
     </Container>
     
