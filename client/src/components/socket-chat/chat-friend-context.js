@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const ChatFriendContext = React.createContext();
+export const ChatFriendStateContext = React.createContext();
+
+export const ChatFriendUpdaterContext = React.createContext();
+
 
 //maintains current friend with whom user is chatting/view messages (based on selection)
-export const chatUserState = {
-    user:null
-  
-  }
+export const ChatFriendProvider = ({children}) => {
 
-export const chatFriendReducer = (state, action) => {
-  
-    switch(action.type)
-    {
-      case 'change_friend':
-        return { user: action.value }
-    }
-  }
+  const [chatFriend, setChatFriend] = useState(null);
+
+  return (
+    <ChatFriendStateContext.Provider value={chatFriend}>
+      <ChatFriendUpdaterContext.Provider value={setChatFriend}>
+        {children}
+      </ChatFriendUpdaterContext.Provider>
+    </ChatFriendStateContext.Provider>
+  )
+}

@@ -5,7 +5,7 @@ import SendIcon from '@material-ui/icons/Send';
 import Box from '@material-ui/core/Box';
 import { useStyles } from '../../styles/style';
 import { AuthStateContext } from '../authentication/auth-context';
-import { ChatFriendContext } from './chat-friend-context';
+import { ChatFriendStateContext } from './chat-friend-context';
 import { SocketContext } from './socket';
 
 const SendMessageBox = (props) => {
@@ -14,8 +14,7 @@ const SendMessageBox = (props) => {
 
     const { user } = useContext(AuthStateContext);
 
-    const chatFriendContext = useContext(ChatFriendContext);
-    const friend = chatFriendContext.chatFriend.user;
+    const chatFriend = useContext(ChatFriendStateContext);
 
     const socket = useContext(SocketContext);
 
@@ -27,9 +26,9 @@ const SendMessageBox = (props) => {
         
         if(!chat.trim()) return;
 
-        if(friend)
+        if(chatFriend)
         {   
-            const message = {from:user.googleId, to:friend.googleId, content:chat,time : Date.now()};
+            const message = {from:user.googleId, to:chatFriend.googleId, content:chat,time : Date.now()};
             socket.emit('PM',message);
             pushMessage(message);
         }
