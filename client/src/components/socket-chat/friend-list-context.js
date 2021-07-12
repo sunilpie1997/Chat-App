@@ -57,9 +57,9 @@ export const FriendListProvider = ({children}) => {
 
     return  (
         <FriendListStateContext.Provider value={friendList}>
-            <FriendListUpdaterContext value = {setFriendList}>
+            <FriendListUpdaterContext.Provider value = {setFriendList}>
                 {children}
-            </FriendListUpdaterContext>
+            </FriendListUpdaterContext.Provider>
         </FriendListStateContext.Provider>
     )
 
