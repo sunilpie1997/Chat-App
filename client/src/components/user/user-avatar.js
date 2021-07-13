@@ -1,7 +1,4 @@
 import React from 'react';
-import {useStyles} from '../../styles/style';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { Avatar } from '@material-ui/core';
 import { StyledBadge } from '../../styles/style'; 
 

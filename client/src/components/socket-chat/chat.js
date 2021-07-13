@@ -2,16 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthStateContext } from '../authentication/auth-context';
 import UserAvatar from '../user/user-avatar';
 import {Link, useRouteMatch} from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 import {useStyles} from '../../styles/style';
 import Box from '@material-ui/core/Box';
-import HomeIcon from '@material-ui/icons/Home';
 import FriendList from './friend-list';
 import AlertMessage from '../../utils/alerts';
-import Snackbar from '@material-ui/core/Snackbar';
 import MessagePanel from './MessagePanel';
 import { ChatFriendStateContext } from './chat-friend-context';
 import { SocketContext } from './socket-context';
+
 
 const ChatComponent = () => {
 
@@ -40,7 +38,7 @@ const ChatComponent = () => {
 
     useEffect(() => {
 
-        let intervalId = setInterval(setSocketStatusProperty,1000);
+        let intervalId = setInterval(setSocketStatusProperty,100);
 
         return () => { 
             if(intervalId) clearInterval(intervalId);
@@ -49,7 +47,7 @@ const ChatComponent = () => {
     },[]);
 
     return (
-        <Box>
+        <React.Fragment>
                  
                 <Box className={classes.info_message}>
                     
@@ -66,6 +64,7 @@ const ChatComponent = () => {
                                     <AlertMessage severity="warning">Please select your friend</AlertMessage>
                                 )
                     }
+                   
                 </Box>
                         
                 <Box className={classes.message_panel_box}>
@@ -77,7 +76,7 @@ const ChatComponent = () => {
 
                 </Box>
                 
-        </Box>
+        </React.Fragment>
     )
 
 

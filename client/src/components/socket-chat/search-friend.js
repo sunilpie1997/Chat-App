@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthStateContext } from '../authentication/auth-context';
 import {Link} from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
-import Typography from '@material-ui/core/Typography';
 import {useStyles} from '../../styles/style';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';

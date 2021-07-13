@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useContext} from 'react';
+import React,{ useEffect, useContext} from 'react';
 import Message from './message';
 import Box from '@material-ui/core/Box';
 import SendMessageBox from './send-message-box';
@@ -13,13 +13,12 @@ const MessagePanel = () => {
     const chatFriend = useContext(ChatFriendStateContext);
 
     const messageHistory = useContext(MessageHistoryStateContext);
-
+    
     const messageEndRef = React.createRef(null);
 
     const scrollToBottom = () => {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
       }
-    
 
     const filterMessages = (message) => {
 
@@ -29,6 +28,11 @@ const MessagePanel = () => {
         // if no friend selected, show no message
         return false;
     }
+
+    useEffect(()=>{
+        scrollToBottom();
+
+    },[messageHistory])
 
     return (
 
@@ -41,15 +45,14 @@ const MessagePanel = () => {
                         return <Message message={message} key={message.id}/>
                     })
                 }
-
+                <Box id="messageEnd" ref={messageEndRef}/>
+            
             </Box>
+            
             <Box className={classes.send_message_box}>
                 <SendMessageBox/>
             </Box>
-            
-            <div id="messageEnd" ref={messageEndRef}>
 
-            </div>
         </React.Fragment>
     );
 

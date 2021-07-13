@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import './App.css';
-import { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { AuthProvider } from './components/authentication/auth-context';
 import Container from '@material-ui/core/Container';
@@ -9,13 +8,14 @@ import Login from './components/authentication/login';
 import DashBoard from './components/dashboard';
 import MatchNotFound from './components/match-not-found';
 import { SocketContext, socket } from './components/socket-chat/socket-context';
+import Box from '@material-ui/core/Box';
 
 function App() {
 
   return (
 
-    <Container maxWidth="xl" className="App">
-  
+    // <Container maxWidth="xl" className="App" style={{backgroundColor:'gray',paddingTop:'0em'}}>
+    <Box className="App">
       <AuthProvider>
           <SocketContext.Provider value={socket}>
           
@@ -34,7 +34,7 @@ function App() {
             </Router>
           </SocketContext.Provider>
       </AuthProvider>
-    </Container>
+    </Box>
     
   )
 }

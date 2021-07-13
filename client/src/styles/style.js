@@ -25,18 +25,17 @@ const useStyles = makeStyles({
 
   message_panel_box: {
 
-    marginTop:'4em',
+    marginTop:'2em',
     width:'80%',
     float:'left',
-    minHeight:'600px',
+    // minHeight:'600px',
     maxHeight:'600px',
-    overflow:'scroll',
     display:'flex',
     flexDirection:'column'
   },
   
   friends_box: {
-    marginTop:'4em',
+    marginTop:'2em',
     width:'20%',
     float:'left',
     minHeight:'600px',
@@ -77,8 +76,8 @@ const useStyles = makeStyles({
 
   chat_message: {
 
-    marginTop:'1em',
-    marginBottom:"1em",
+    marginTop:'0.5em',
+    marginBottom:"0.5em",
     wordWrap:'break-word',
     maxWidth:'600px',
     minWidth:"50px",
@@ -90,6 +89,10 @@ const useStyles = makeStyles({
     color:'#002884',
     display:'flex',
     flexDirection:'column',
+    overflowY:'scroll',
+    minHeight:'500px',
+    maxHeight:'500px',
+
   },
 
   float_right:{
@@ -107,7 +110,7 @@ const useStyles = makeStyles({
     minWidth:'500px',
     width:'100%',
     marginLeft:'1em',
-    marginTop:'2em',
+    marginTop:'1em',
     marginBottom:'0em',
     paddingLeft:'1em',
     display:'inline-block'

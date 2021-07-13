@@ -37,7 +37,6 @@ const SendMessageBox = () => {
 
     return (
         <React.Fragment>
-
             <Box>
                 <TextField className={classes.send_text_div}
                     id="standard-multiline-flexible"

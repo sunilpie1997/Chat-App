@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, useRouteMatch} from 'react-router-dom';
 import HomePage from './home/HomePage';
 import ChatComponent from './socket-chat/chat';
