@@ -7,16 +7,17 @@ import { useStyles } from '../../styles/style';
 import { AuthStateContext } from '../authentication/auth-context';
 import { ChatFriendStateContext } from './chat-friend-context';
 import { SocketContext } from './socket-context';
+import { MessageHistoryUpdaterContext } from './message-history-context';
 
-const SendMessageBox = (props) => {
-
-    const pushMessage = props.pushMessage;
+const SendMessageBox = () => {
 
     const { user } = useContext(AuthStateContext);
 
     const chatFriend = useContext(ChatFriendStateContext);
 
     const socket = useContext(SocketContext);
+
+    const pushMessage = useContext(MessageHistoryUpdaterContext);
 
     const [chat, setChat] = useState('');
 

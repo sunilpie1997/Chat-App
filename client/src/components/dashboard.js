@@ -6,6 +6,7 @@ import SearchFriend from './socket-chat/search-friend';
 import Box from '@material-ui/core/Box';
 import { ChatFriendProvider } from './socket-chat/chat-friend-context';
 import { FriendListProvider } from './socket-chat/friend-list-context';
+import { MessageHistoryProvider } from './socket-chat/message-history-context';
 
 
 const DashBoard = () => {
@@ -17,11 +18,13 @@ const DashBoard = () => {
         <Box>
             <ChatFriendProvider>
                 <FriendListProvider>
-                    <Switch>
-                        <Route exact path={path} render={ props => <HomePage {...props} /> } />
-                        <Route exact path={`${path}/chat`} render={ props => <ChatComponent {...props} /> } />
-                        <Route exact path={`${path}/add_friend`} render={ props => <SearchFriend {...props} /> } />
-                    </Switch>
+                    <MessageHistoryProvider>
+                        <Switch>
+                            <Route exact path={path} render={ props => <HomePage {...props} /> } />
+                            <Route exact path={`${path}/chat`} render={ props => <ChatComponent {...props} /> } />
+                            <Route exact path={`${path}/add_friend`} render={ props => <SearchFriend {...props} /> } />
+                        </Switch>
+                    </MessageHistoryProvider>
                 </FriendListProvider>
             </ChatFriendProvider>
             
