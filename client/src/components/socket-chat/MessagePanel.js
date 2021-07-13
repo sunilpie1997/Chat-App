@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import SendMessageBox from './send-message-box';
 import { useStyles } from '../../styles/style';
 import { ChatFriendStateContext } from './chat-friend-context';
-import { SocketContext } from './socket-context';
+import { MessageHistoryStateContext } from './message-history-context';
 
 const MessagePanel = () => {
 
@@ -12,46 +12,13 @@ const MessagePanel = () => {
 
     const chatFriend = useContext(ChatFriendStateContext);
 
-    const socket = useContext(SocketContext);
+    const messageHistory = useContext(MessageHistoryStateContext);
 
-    const [allMessages,setAllMessages] = useState([]);
     const messageEndRef = React.createRef(null);
 
     const scrollToBottom = () => {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
       }
-    
-    const receiveMessageListener = (message) => pushMessage(message);
-    
-    const pushMessage = ({from,to,content,time}) => {
-  
-        setAllMessages(prev => [
-            ...prev,
-            {
-  
-                id : prev.length,
-                from : from,
-                to : to,
-                time : time,
-                content : content
-            }
-        ]);
-    }      
-    
-    useEffect(() => {
-
-        scrollToBottom();
-    }, [allMessages]);
-
-    
-    useEffect(() => {
-
-        socket.on('PM', receiveMessageListener);
-
-        return () => socket.off('PM', receiveMessageListener);
-    });
-
-    
     
 
     const filterMessages = (message) => {
@@ -69,7 +36,7 @@ const MessagePanel = () => {
             <Box className={classes.message_history_box}>
 
                 {   // add filter to display only particular friend message
-                    allMessages.filter(filterMessages).map((message) => {
+                    messageHistory.filter(filterMessages).map((message) => {
 
                         return <Message message={message} key={message.id}/>
                     })
@@ -77,7 +44,7 @@ const MessagePanel = () => {
 
             </Box>
             <Box className={classes.send_message_box}>
-                <SendMessageBox pushMessage={pushMessage}/>
+                <SendMessageBox/>
             </Box>
             
             <div id="messageEnd" ref={messageEndRef}>
