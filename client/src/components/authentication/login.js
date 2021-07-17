@@ -41,7 +41,7 @@ const Login = () => {
             localStorage.clear();
             // set logged in user (userState)
             authDispatch({type: 'login', value: apiResp.data});
-            window.location.pathname="/";
+            // window.location.pathname="/";
 
             // no point to use alert as it will not be shown as 'Login' component will be unmounted
         }
