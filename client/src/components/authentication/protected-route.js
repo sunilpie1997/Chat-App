@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { Redirect, Route } from "react-router-dom";
+import LoadingComponent from "../loading";
 import { AuthStateContext } from "./auth-context";
 
 function ProtectedRoute({ component: Component, ...restOfProps }) {
@@ -8,7 +9,9 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     
     if(loading)
     {
-        return <h1>Loading</h1>
+        return (
+            <LoadingComponent/>
+        )
     }
     else
     {
