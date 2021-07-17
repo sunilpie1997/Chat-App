@@ -22,20 +22,31 @@ import axios from 'axios';
         }
         catch(err)
         {
-            if(err.message === "Network Error")
-            {
-                return {
-                    error: true,
-                    message: 'could not connect to backend'
-                }
-            }
-            else
+            if(err.response)
             {
                 const data = err.response.data;
                 return {
                     error: true,
                     message:data.message
                 }
+            }
+            else
+            {
+                if(err.request)
+                {
+                    return {
+                        error: true,
+                        message: 'no response from server. contact admin'
+                    }
+                }
+                else
+                {
+                    return {
+                        error: true,
+                        message: 'client side error'
+                    }
+                }
+                
             }
         }
 
@@ -64,20 +75,32 @@ import axios from 'axios';
         }
         catch(err)
         {
-            if(err.message === "Network Error")
-            {
-                return {
-                    error: true,
-                    message: 'could not connect to backend'
-                }
-            }
-            else
+            
+            if(err.response)
             {
                 const data = err.response.data;
                 return {
                     error: true,
                     message:data.message
                 }
+            }
+            else
+            {
+                if(err.request)
+                {
+                    return {
+                        error: true,
+                        message: 'no response from server. contact admin'
+                    }
+                }
+                else
+                {
+                    return {
+                        error: true,
+                        message: 'client side error'
+                    }
+                }
+                
             }
         }
 
@@ -104,20 +127,31 @@ import axios from 'axios';
         }
         catch(err)
         {
-            if(err.message === "Network Error")
-            {
-                return {
-                    error: true,
-                    message: 'could not connect to backend'
-                }
-            }
-            else
+            if(err.response)
             {
                 const data = err.response.data;
                 return {
                     error: true,
                     message:data.message
                 }
+            }
+            else
+            {
+                if(err.request)
+                {
+                    return {
+                        error: true,
+                        message: 'no response from server. contact admin'
+                    }
+                }
+                else
+                {
+                    return {
+                        error: true,
+                        message: 'client side error'
+                    }
+                }
+                
             }
         }
 
