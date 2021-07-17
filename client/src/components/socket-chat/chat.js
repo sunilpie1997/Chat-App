@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthStateContext } from '../authentication/auth-context';
 import UserAvatar from '../user/user-avatar';
-import {Link, useRouteMatch} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useStyles} from '../../styles/style';
 import Box from '@material-ui/core/Box';
 import FriendList from './friend-list';

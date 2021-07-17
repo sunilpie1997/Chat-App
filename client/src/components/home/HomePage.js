@@ -1,4 +1,4 @@
-import React, {useContext, useEffect,useState} from 'react';
+import React, {useContext} from 'react';
 import Logout from '../authentication/logout';
 import { AuthStateContext } from '../authentication/auth-context';
 import UserDetails from '../user/user-details'; 
