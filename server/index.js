@@ -128,28 +128,24 @@ const io = require('socket.io')(server,
     // throw error here itself before socket connects (in 'io.on('connection',()=>{}) )
     io.use(async (socket,next) => {
 
-        // this is the same session as in express 'req.session' so all session data is synchronised
-        //console.log("socket session id", socket.handshake.session);
-
+        // this is the same session as in express 'req.session'.
         const socketSession = socket.handshake.session;
 
+        const userSession = await getSessionFromStore(socketSession.id);
         // if user is not present, refuse connection
-        if(!socketSession.user)
+        if(!userSession || !userSession.user)
         {
             next(new Error("unauthorised event"));
         }
         else
         {
             // check if it's the first socket connection for this user
-            if(!socketSession.socketId)
+            if(!userSession.socketId)
             {
                 // allow coonection
-                // autosave = true, so no need to call save()... but not working..don't know why?
-                socketSession.socketId = socket.id;
-                socketSession.save();
-
+                await updateSessionInStore(socketSession.id,socket.id)
                 // add googleId to redis set of online users
-                await addToOnlineUsersList(socketSession.user.googleId);
+                await addToOnlineUsersList(userSession.user.googleId);
                 next();
             }
             else
@@ -171,7 +167,7 @@ const io = require('socket.io')(server,
 
 
 // returns null if googleId does not exists and if googleId exists, it returns 'sessionId'
-const getUserSessionFromRedis = async(googleId) => {
+const getUserSessionIdFromRedis = async(googleId) => {
 
     try
     {
@@ -186,7 +182,7 @@ const getUserSessionFromRedis = async(googleId) => {
 }
 
 
-const setUserSessionInRedis = async (googleId, sessionId) => {
+const setUserSessionIdInRedis = async (googleId, sessionId) => {
 
     try{
     
@@ -204,7 +200,7 @@ const setUserSessionInRedis = async (googleId, sessionId) => {
 
 }
 
-const removeUserSessionFromRedis = async (googleId) => {
+const removeUserSessionIdFromRedis = async (googleId) => {
 
     try{
 
@@ -266,6 +262,40 @@ const removeFromOnlineUsersList = async (googleId) => {
     }
 
 }
+
+
+const getSessionFromStore = async (sessionId) => {
+
+    try
+    {
+        const getSession = util.promisify(RedisSessionStore.get).bind(RedisSessionStore);
+    
+        return await getSession(sessionId);
+    }
+    catch(err)
+    {
+        throw new Error("severe error : could not fetch user session from store");
+    }
+
+}
+// now for only setting socketId
+const updateSessionInStore = async (sessionId,socketId) => {
+
+    try
+    {
+        const session = await getSessionFromStore(sessionId);
+        if(session)
+        {
+            const setSession = util.promisify(RedisSessionStore.set).bind(RedisSessionStore);
+            await setSession(sessionId,{...session,socketId:socketId});
+        }
+    }
+    catch(err)
+    {
+        throw new Error("severe error : could not update user session in store");
+    }
+
+}
 /********************** express routess ***********************/
 
 app.post('/auth/login/', async (req, res) => {
@@ -287,25 +317,25 @@ app.post('/auth/login/', async (req, res) => {
             });
 
         // check if user has logged in already
-        const sessionId = await getUserSessionFromRedis(userDetails.googleId);
+        const sessionId = await getUserSessionIdFromRedis(userDetails.googleId);
 
         if(sessionId)
         {
             // destroy old session
             const destroySession = util.promisify(RedisSessionStore.destroy).bind(RedisSessionStore);
-
+            
             await destroySession(sessionId);
 
             console.log("old sesssion destroyed");
 
             // overwrite with new session id for user
-            await setUserSessionInRedis(userDetails.googleId, req.session.id);
+            await setUserSessionIdInRedis(userDetails.googleId, req.session.id);
 
         }
         else
         {   
             // set global login status
-            await setUserSessionInRedis(userDetails.googleId, req.session.id);
+            await setUserSessionIdInRedis(userDetails.googleId, req.session.id);
         }
 
         // this is set only while login
@@ -333,7 +363,7 @@ app.post('/auth/logout/', async (req, res) => {
         if(req.session.user)
         {
             // remove global login status
-            await removeUserSessionFromRedis(req.session.user.googleId);
+            await removeUserSessionIdFromRedis(req.session.user.googleId);
 
         }
         req.session.destroy();
@@ -550,14 +580,22 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", async ()=>{
 
-        socket.broadcast.emit('LEAVE',socketSession.user.googleId);
-        // remove 'socketId' property from session so that they can connect again
-        socketSession.socketId = null;
-        socketSession.save();
 
-        // remove user from online users list
-        await removeFromOnlineUsersList(socketSession.user.googleId);
-        console.log("socket disconnected");
+        const sessionId = await getUserSessionIdFromRedis(socketSession.user.googleId);
+
+        if(!sessionId || ( sessionId == socketSession.id ))
+        {
+            socket.broadcast.emit('LEAVE',socketSession.user.googleId);
+            // remove user from online users list
+            await removeFromOnlineUsersList(socketSession.user.googleId);
+
+            if(sessionId)
+            {
+                await updateSessionInStore(socketSession.id,null);
+
+            }
+        }
+        console.log("socket disconnected finally");
 
     });
   
