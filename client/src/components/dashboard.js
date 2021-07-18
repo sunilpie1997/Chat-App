@@ -17,6 +17,7 @@ const DashBoard = () => {
     return (
         <Box>
             <ChatFriendProvider>
+                {/* don't change the below order of providers */}
                 <FriendListProvider>
                     <MessageHistoryProvider>
                         <Switch>

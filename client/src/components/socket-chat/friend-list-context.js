@@ -49,7 +49,6 @@ export const FriendListProvider = ({children}) => {
 
     },[]);
 
-
     const setFriendStatusToOffline = (googleId) => {
         
         setFriendList(prev => prev.map(friend => friend.googleId == googleId ? {...friend,status:0} : friend ));
@@ -76,7 +75,7 @@ export const FriendListProvider = ({children}) => {
                 <Snackbar open={open} autoHideDuration={parseInt(process.env.REACT_APP_AUTOHIDE_TIME)} onClose={handleClose}>
                 {
                     error ? (
-                                <AlertMessage onClose={handleClose} severity="error">{message}</AlertMessage>
+                                <AlertMessage onClose={handleClose} severity="warning">{message}</AlertMessage>
                             ):
                             (
                                 <AlertMessage onClose={handleClose} severity="success">{message}</AlertMessage>
