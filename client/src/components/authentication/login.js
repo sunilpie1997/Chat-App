@@ -75,7 +75,7 @@ const Login = () => {
         <Box className={classes.login_box}>
 
             {/***************************** alerts on error and success *****************************/}    
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={process.env.REACT_APP_AUTOHIDE_TIME} onClose={handleClose}>
                         {
                             error ? (
                                <AlertMessage onClose={handleClose} severity="error">{message}</AlertMessage>
