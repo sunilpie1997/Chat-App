@@ -8,6 +8,10 @@ Technologies
 3. Socket.io
 4. Redis
 
+#### Features ####
+1. sign in with google
+2. search and add friends
+3. find which of them is online and chat in realtime
 
 #### Requirements ####
 
