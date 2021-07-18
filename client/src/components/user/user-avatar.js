@@ -26,7 +26,7 @@ const UserAvatar = (props) => {
                             horizontal: "right"
                             }}
                         variant="dot"
-                        colorTheme={getColorForStatus()}
+                        badgecolor={getColorForStatus()}
                     >
                         <Avatar alt={fullName} src={photoUrl}/>
 

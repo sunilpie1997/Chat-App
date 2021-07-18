@@ -46,7 +46,7 @@ const Logout = () => {
         <React.Fragment>
 
             {/***************************** alerts on error and success *****************************/}    
-            <Snackbar open={open} autoHideDuration={process.env.REACT_APP_AUTOHIDE_TIME} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={parseInt(process.env.REACT_APP_AUTOHIDE_TIME)} onClose={handleClose}>
                         {
                             error ? (
                                <AlertMessage onClose={handleClose} severity="error">{message}</AlertMessage>

@@ -38,7 +38,7 @@ const FriendView = (props) => {
                             horizontal: "right"
                             }}
                         variant="dot"
-                        colorTheme={getColorForStatus()}
+                        badgecolor={getColorForStatus()}
                     >
                         <Avatar alt={friend.fullName} src={friend.photoUrl} />
                     </StyledBadge>

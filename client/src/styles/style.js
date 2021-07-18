@@ -141,9 +141,9 @@ const useStyles = makeStyles({
 
 const StyledBadge = withStyles(() => ({
   badge: props => ({
-    backgroundColor: props.colorTheme,
-    color: props.colorTheme,
-    boxShadow: `0 0 0 2px ${props.colorTheme}`,
+    backgroundColor: props.badgecolor,
+    color: props.badgecolor,
+    boxShadow: `0 0 0 2px ${props.badgecolor}`,
     "&::after": {
       position: "absolute",
       top: 0,
@@ -152,7 +152,7 @@ const StyledBadge = withStyles(() => ({
       height: "100%",
       borderRadius: "50%",
       animation: "$ripple 1.2s infinite ease-in-out",
-      border: `1px solid ${props.colorTheme}`,
+      border: `1px solid ${props.badgecolor}`,
       content: '""'
     }
   }),
